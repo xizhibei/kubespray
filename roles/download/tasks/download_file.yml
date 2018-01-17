@@ -28,6 +28,9 @@
   when:
     - download.enabled
     - download.file
+  delegate_to: "{{ download_delegate if download_run_once or omit }}"
+  delegate_facts: no
+  run_once: "{{ download_run_once }}"
 
 - name: file_download | Extract archives
   unarchive:
@@ -40,3 +43,6 @@
     - download.enabled
     - download.file
     - download.unarchive|default(False)
+  delegate_to: "{{ download_delegate if download_run_once or omit }}"
+  delegate_facts: no
+  run_once: "{{ download_run_once }}"
